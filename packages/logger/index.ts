@@ -5,10 +5,10 @@ export class Logger {
   private readonly writer: fs.WriteStream | null
 
   constructor(outputPath?: string) {
-    const isDev = process.env.NODE_ENV === 'development'
-    if (!isDev) {
-      this.writer = null
-    }
+    // const isDev = process.env.NODE_ENV === 'development'
+    // if (!isDev) {
+    //   this.writer = null
+    // }
 
     const logPath =
       outputPath ||

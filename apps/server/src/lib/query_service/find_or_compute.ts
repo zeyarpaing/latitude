@@ -37,7 +37,18 @@ export default async function findOrCompute({
   if (force) {
     queryResult = await compute()
   } else {
-    queryResult = cache.find(request, config.ttl) || (await compute())
+    const cacheResult = cache.find(request, config.ttl)
+    if (cacheResult) {
+      console.log('Cache Hit : Returning cached result')
+      queryResult = cacheResult
+    } else {
+      console.log('Cache Miss : Running the query')
+      const timeStart = performance.now()
+      const computeResult = await compute()
+      const timeEnd = performance.now()
+      console.log(`>> Query ${query} took ${timeEnd - timeStart}ms`)
+      queryResult = computeResult
+    }
   }
 
   return {

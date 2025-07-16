@@ -42,27 +42,15 @@ export default class BigQueryConnector extends BaseConnector<ConnectionParams> {
     const client = this.createClient()
 
     try {
-      const timeStart = performance.now()
       const [job] = await client.createQueryJob({
         query: compiledQuery.sql,
         params: this.buildQueryParams(compiledQuery.resolvedParams),
       })
-      let timeEnd = performance.now()
-      this.logger.log(
-        `${compiledQuery.queryPath} | createQueryJob | ${
-          timeEnd - timeStart
-        }ms`,
-      )
 
       // Wait for the query to finish
       const [rows, , metadata] = await job.getQueryResults({
         autoPaginate: false,
       })
-      this.logger.log(
-        `${compiledQuery.queryPath} | getQueryResults | ${
-          performance.now() - timeEnd
-        }ms`,
-      )
       const rowCount = Number(metadata?.totalRows) || 0
       const fields =
         metadata?.schema?.fields?.map(

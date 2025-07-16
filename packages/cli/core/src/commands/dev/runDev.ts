@@ -1,4 +1,4 @@
-import boxedMessage from '$src/lib/boxedMessage'
+// import boxedMessage from '$src/lib/boxedMessage'
 import colors from 'picocolors'
 import config from '$src/config'
 import path from 'path'
@@ -109,11 +109,11 @@ http://localhost:${appPort}`
       if (onReady) {
         onReady(devUrl)
       } else {
-        boxedMessage({
-          title: 'Latitude server',
-          text: devUrl,
-          color: 'green',
-        })
+        // boxedMessage({
+        //   title: 'Latitude server',
+        //   text: devUrl,
+        //   color: 'green',
+        // })
       }
 
       building = false
