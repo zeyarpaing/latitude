@@ -10,4 +10,9 @@ export default defineConfig({
       include: '**/*.template',
     }),
   ],
+  build: {
+    rollupOptions: {
+      external: ['@latitude-data/source-manager', 'path'],
+    },
+  },
 })

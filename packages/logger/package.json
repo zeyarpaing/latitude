@@ -1,0 +1,26 @@
+{
+  "name": "@latitude-data/logger",
+  "description": "Logger utility functions for Latitude Data",
+  "version": "0.2.0",
+  "license": "LGPL",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "dev": "rollup -c -w",
+    "build": "rollup -c",
+    "lint": "eslint . --max-warnings 0 --ext .ts src",
+    "tc": "tsc --noEmit",
+    "prettier": "prettier --write src/**/*.ts"
+  },
+  "type": "module",
+  "devDependencies": {
+    "@latitude-data/eslint-config": "workspace:*",
+    "@latitude-data/typescript": "workspace:*",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "@types/eslint": "8.56.0",
+    "@types/node": "^24.0.14",
+    "prettier": "^3.1.1",
+    "rollup": "^4.10.0",
+    "typescript": "^5.0.0"
+  }
+}

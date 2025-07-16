@@ -141,6 +141,7 @@ export abstract class BaseConnector<P extends ConnectorAttributes = {}> {
       sql: compiledSql,
       resolvedParams,
       accessedParams,
+      queryPath: request.queryPath,
     }
   }
 

@@ -10,6 +10,7 @@ import {
 import QueryResult, { DataType, Field } from '@latitude-data/query_result'
 import { OAuth2Client } from 'google-auth-library'
 import { JSONClient } from 'google-auth-library/build/src/auth/googleauth'
+import { Logger } from '@latitude-data/logger'
 
 type ConnectionParams = {
   credentials?: {
@@ -22,11 +23,12 @@ type ConnectionParams = {
 
 export default class BigQueryConnector extends BaseConnector<ConnectionParams> {
   private params: ConnectionParams
+  private logger: Logger
 
   constructor(options: ConnectorOptions<ConnectionParams>) {
     super(options)
-
     this.params = options.connectionParams
+    this.logger = new Logger()
   }
 
   resolve(value: unknown, index: number): ResolvedParam {
@@ -40,15 +42,27 @@ export default class BigQueryConnector extends BaseConnector<ConnectionParams> {
     const client = this.createClient()
 
     try {
+      const timeStart = performance.now()
       const [job] = await client.createQueryJob({
         query: compiledQuery.sql,
         params: this.buildQueryParams(compiledQuery.resolvedParams),
       })
+      let timeEnd = performance.now()
+      this.logger.log(
+        `${compiledQuery.queryPath} | createQueryJob | ${
+          timeEnd - timeStart
+        }ms`,
+      )
 
       // Wait for the query to finish
       const [rows, , metadata] = await job.getQueryResults({
         autoPaginate: false,
       })
+      this.logger.log(
+        `${compiledQuery.queryPath} | getQueryResults | ${
+          performance.now() - timeEnd
+        }ms`,
+      )
       const rowCount = Number(metadata?.totalRows) || 0
       const fields =
         metadata?.schema?.fields?.map(

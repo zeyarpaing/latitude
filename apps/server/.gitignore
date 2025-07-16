@@ -18,3 +18,6 @@ src/routes/*
 !src/routes/+layout.svelte
 !src/routes/+layout.server.ts
 !src/routes/+layout.ts
+
+
+*.log

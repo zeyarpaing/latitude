@@ -64,6 +64,7 @@
     "@latitude-data/display_table": "workspace:^",
     "@latitude-data/embedding": "workspace:*",
     "@latitude-data/jwt": "workspace:*",
+    "@latitude-data/logger": "workspace:*",
     "@latitude-data/source-manager": "workspace:^",
     "@latitude-data/svelte": "workspace:*",
     "cheerio": "1.0.0-rc.12",

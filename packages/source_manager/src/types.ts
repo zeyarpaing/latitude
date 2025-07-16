@@ -62,6 +62,7 @@ export type CompiledQuery = {
   sql: string
   resolvedParams: ResolvedParam[]
   accessedParams: QueryParams
+  queryPath?: string
 }
 
 export class ConnectorError extends Error {}
